@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maafin aku ya, sayangku? 🥺💗</title>
+
+  <!-- Font cute dari Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===================================================== -->
+  <!-- LAYER ANIMASI HATI BERJATUHAN (selalu tampil di belakang) -->
+  <!-- ===================================================== -->
+  <div id="hearts-container" aria-hidden="true"></div>
+
+  <!-- ===================================================== -->
+  <!-- KUCING LUCU YANG BERJALAN/NGINTIP DI POJOK LAYAR -->
+  <!-- ===================================================== -->
+  <div id="cat-buddy" class="cat-buddy" aria-hidden="true">
+    <span class="cat-emoji">🐱</span>
+    <span class="cat-bubble">nyaa~</span>
+  </div>
+
+  <!-- ===================================================== -->
+  <!-- TOMBOL MUTE MUSIK — pojok kanan atas, selalu tampil -->
+  <!-- ===================================================== -->
+  <button id="btn-music-toggle" class="music-toggle" aria-label="Mute/unmute musik">
+    <span id="music-icon">🔊</span>
+  </button>
+
+  <!-- ===================================================== -->
+  <!-- STATE 1: HALAMAN PERMINTAAN MAAF -->
+  <!-- ===================================================== -->
+  <main id="screen-apology" class="screen active">
+    <div class="card">
+      <!-- Foto polaroid kamu — ganti src di bawah dengan foto sendiri.
+           Lihat juga komentar di style.css kalau mau atur ukuran/rotasi. -->
+      <div class="polaroid">
+        <img
+          id="profile-photo"
+          class="polaroid-img"
+          src="assets/img/julian.jpg"
+          alt="Foto aku"
+          onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22280%22%3E%3Crect width=%22280%22 height=%22280%22 fill=%22%23ffd6e8%22/%3E%3Ctext x=%2250%25%22 y=%2245%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2228%22 fill=%22%235b3a4a%22%3E%F0%9F%93%B7%3C/text%3E%3Ctext x=%2250%25%22 y=%2260%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2216%22 fill=%22%235b3a4a%22%3EFoto Kamu Disini%3C/text%3E%3C/svg%3E'"
+        >
+        <p class="polaroid-caption">ini pacarku 🫶</p>
+      </div>
+
+      <div class="emoji-row">🥺💗✨</div>
+
+      <!-- Teks ini akan dimunculkan dengan efek typing oleh script.js -->
+      <h1 id="apology-text" class="typing-text"></h1>
+
+      <p class="question-text">Maafin aku ya, sayangku?</p>
+
+      <div class="button-row">
+        <button id="btn-yes" class="btn btn-yes">Iya 💗</button>
+        <button id="btn-no" class="btn btn-no">Enggak 😤</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===================================================== -->
+  <!-- STATE 2: LOVE LETTER — sebelum pilih date -->
+  <!-- ===================================================== -->
+  <main id="screen-letter" class="screen">
+    <div class="card letter-card">
+
+      <!-- Tombol back kembali ke halaman permintaan maaf -->
+      <button class="btn-back" data-back-to="screen-apology" aria-label="Kembali">
+        ← Kembali
+      </button>
+
+      <div class="emoji-row">💌🐱💗</div>
+
+      <h1 class="letter-title">A little letter for you</h1>
+
+      <!-- Teks bisa diubah bebas di sini. Boleh full English, full Indonesia,
+           atau campur seperti contoh ini. -->
+      <div class="letter-body">
+        <p>hey kakak sayangggg!🥺</p>
+        <p>i know today’s been a bit rough for you. but please don’t be too hard on yourself, okay? 
+          whatever’s bothering you right now, we’ll get through it one step at a time. 
+          <em>i’m always here for you,</em> even if i’m a little busy at the moment.</p>
+        <p>so hang in there for me, kkay? 
+kalau kamu senggang ayo nanti pacaran sama aku. 
+tell me all about your day, and i’ll listen to every little thing 📖💗
+i love you so much, pacarku yang ganteng, lucu, 
+and my favourite person evahhh mwah mwah 🤍</p>
+      </div>
+
+      <button id="btn-letter-next" class="btn btn-yes letter-btn">
+        Iya deh, nanti pacaran 💌
+      </button>
+    </div>
+  </main>
+
+  <!-- ===================================================== -->
+  <!-- STATE 3: HALAMAN PILIH DATE (TICKET) -->
+  <!-- ===================================================== -->
+  <main id="screen-date" class="screen">
+    <div class="card card-wide">
+
+      <!-- Tombol back kembali ke halaman love letter -->
+      <button class="btn-back" data-back-to="screen-letter" aria-label="Kembali">
+        ← Kembali
+      </button>
+
+      <h1 class="date-title">Yukkk pilih date nya mau ngapain 🥺💗</h1>
+
+      <div class="ticket-stack">
+        <!-- Setiap tiket punya data-label untuk ditampilkan di pesan konfirmasi -->
+        <!-- data-percent dipakai untuk angka besar di sisi kiri (gaya kupon) -->
+        <button class="ticket" data-label="ngobrol berdua sampai lupa waktu" style="--ticket-tone: var(--pink-soft);">
+          <span class="ticket-stub">
+            <span class="ticket-icon">🎬</span>
+          </span>
+          <span class="ticket-perforation" aria-hidden="true"></span>
+          <span class="ticket-body">
+            <span class="ticket-kicker">🐾 Cat Date Pass</span>
+            <span class="ticket-text">Nobar</span>
+            <span class="ticket-sub">Berlaku kapan aja, asal sama kamu</span>
+          </span>
+        </button>
+
+        <button class="ticket" data-label="Mabar" style="--ticket-tone: var(--pink-main);">
+          <span class="ticket-stub">
+            <span class="ticket-icon">🎮</span>
+          </span>
+          <span class="ticket-perforation" aria-hidden="true"></span>
+          <span class="ticket-body">
+            <span class="ticket-kicker">🐾 Cat Date Pass</span>
+            <span class="ticket-text">Mabar</span>
+            <span class="ticket-sub">Siap-siap aja ak mw bersinar 😼</span>
+          </span>
+        </button>
+
+        <button class="ticket" data-label="ngobrol santai biar makin kenal" style="--ticket-tone: var(--purple-main);">
+          <span class="ticket-stub">
+            <span class="ticket-icon">☕</span>
+          </span>
+          <span class="ticket-perforation" aria-hidden="true"></span>
+          <span class="ticket-body">
+            <span class="ticket-kicker">🐾 Cat Date Pass</span>
+            <span class="ticket-text">Ngobrol aja deh</span>
+            <span class="ticket-sub">Ngobrol santai aja, apapun bleh</span>
+          </span>
+        </button>
+
+        <button class="ticket" data-label="make out" style="--ticket-tone: var(--blue-soft);">
+          <span class="ticket-stub">
+            <span class="ticket-icon">🌸</span>
+          </span>
+          <span class="ticket-perforation" aria-hidden="true"></span>
+          <span class="ticket-body">
+            <span class="ticket-kicker">🐾 Cat Date Pass</span>
+            <span class="ticket-text">Making Out</span>
+            <span class="ticket-sub">Ettt, cuddle boleh, nen bleh, nganu bleh, dirty talk bleh</span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===================================================== -->
+  <!-- STATE 4: KONFIRMASI + TOMBOL TELEGRAM -->
+  <!-- ===================================================== -->
+  <main id="screen-confirm" class="screen">
+    <div class="card">
+      <!-- Tombol back kembali ke halaman pilih date -->
+      <button class="btn-back" data-back-to="screen-date" aria-label="Kembali">
+        ← Ganti pilihan
+      </button>
+
+      <div id="confetti-burst" class="confetti-burst" aria-hidden="true"></div>
+
+      <div class="emoji-row big-emoji">💗🎉💗</div>
+      <h1 class="confirm-text">Yay! aku tunggu ya 🥺💗</h1>
+      <p id="confirm-sub" class="confirm-sub"></p>
+
+      <!-- GANTI USERNAME TELEGRAM DI BAWAH INI (lihat juga script.js) -->
+      <a
+        id="btn-telegram"
+        class="btn btn-telegram"
+        href="https://t.me/sinclairgraph"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        chat aku di tele! 💌
+      </a>
+    </div>
+  </main>
+
+  <!-- Audio elemen opsional untuk sound effect (boleh dikosongkan jika tidak punya file suara) -->
+  <audio id="sfx-click" src="assets/sounds/click.mp3" preload="auto"></audio>
+  <audio id="sfx-success" src="assets/sounds/success.mp3" preload="auto"></audio>
+
+  <!-- Musik background — looping terus selama website dibuka.
+       Taruh file musik kamu sebagai assets/sounds/bg-music.mp3 -->
+  <audio id="bg-music" src="assets/music/otsu.mpeg" loop preload="auto"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
